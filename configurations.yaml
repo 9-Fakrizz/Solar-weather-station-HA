@@ -1,0 +1,68 @@
+mqtt:
+  sensor:
+    - name: "Battery Voltage"
+      state_topic: "okha/vbatt"
+      unit_of_measurement: "V"
+      device_class: voltage
+
+    - name: "PM1.0"
+      state_topic: "okha/pm1_0"
+      unit_of_measurement: "µg/m³"
+
+    - name: "PM2.5"
+      state_topic: "okha/pm2_5"
+      unit_of_measurement: "µg/m³"
+
+    - name: "PM10.0"
+      state_topic: "okha/pm10_0"
+      unit_of_measurement: "µg/m³"
+
+    - name: "Temperature"
+      state_topic: "okha/temperature"
+      unit_of_measurement: "°C"
+      device_class: temperature
+
+    - name: "Humidity"
+      state_topic: "okha/humidity"
+      unit_of_measurement: "%"
+      device_class: humidity
+
+views:
+  - title: Air Quality Dashboard
+    path: air_quality
+    cards:
+      - type: entities
+        title: Air Quality and Environment
+        entities:
+          - entity: sensor.battery_voltage
+            name: Battery Voltage
+          - entity: sensor.pm1_0
+            name: PM1.0
+          - entity: sensor.pm2_5
+            name: PM2.5
+          - entity: sensor.pm10_0
+            name: PM10.0
+          - entity: sensor.temperature
+            name: Temperature
+          - entity: sensor.humidity
+            name: Humidity
+
+      - type: horizontal-stack
+        cards:
+          - type: gauge
+            entity: sensor.pm2_5
+            name: PM2.5
+            min: 0
+            max: 500
+
+          - type: gauge
+            entity: sensor.temperature
+            name: Temperature
+            min: 0
+            max: 50
+
+          - type: gauge
+            entity: sensor.humidity
+            name: Humidity
+            min: 0
+            max: 100
